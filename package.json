@@ -1,0 +1,34 @@
+{
+  "name": "imgc",
+  "productName": "IMGC",
+  "version": "1.0.0",
+  "description": "IMGC | The Zero-Click Offline Media Converter for Windows",
+  "main": "src/main/index.js",
+  "scripts": {
+    "start": "electron .",
+    "build:exe": "electron-packager . IMGC --platform=win32 --arch=x64 --icon=assets/app_icon.ico --out=dist --overwrite --no-asar --win32metadata.CompanyName=IMGC --win32metadata.FileDescription=\"IMGC - Zero-Click Offline Media Converter\" --win32metadata.ProductName=IMGC --win32metadata.OriginalFilename=IMGC.exe"
+  },
+  "keywords": [
+    "imgc",
+    "file-converter",
+    "offline",
+    "zero-click",
+    "media-converter",
+    "image-converter",
+    "video-converter",
+    "audio-converter",
+    "radial-menu",
+    "windows"
+  ],
+  "author": "IMGC",
+  "license": "MIT",
+  "dependencies": {
+    "ffmpeg-static": "^5.3.0",
+    "fluent-ffmpeg": "^2.1.3",
+    "sharp": "^0.33.5"
+  },
+  "devDependencies": {
+    "@electron/packager": "^19.0.4",
+    "electron": "^45.0.0"
+  }
+}

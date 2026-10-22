@@ -1,0 +1,199 @@
+/*
+  IMGC Radial Menu — Design System
+  Direção: Utilitária Técnica
+  Tipografia: Consolas (monospaced, técnica — Windows nativa)
+  Paleta: Near-black quente + âmbar + branco-creme
+  Sem glassmorphism, sem gradientes roxo/azul, sem emojis
+*/
+
+/* ── TOKENS ─────────────────────────────────────────────────── */
+:root {
+  /* Cores base */
+  --clr-bg:        #0e0f11;      /* near-black com leve tom quente */
+  --clr-surface:   #151619;      /* superfície de fatia */
+  --clr-surface-h: #1e2024;      /* hover de fatia */
+  --clr-border:    rgba(232, 229, 220, 0.11); /* borda sutil creme */
+  --clr-border-h:  rgba(232, 229, 220, 0.32); /* borda hover */
+
+  /* Texto */
+  --clr-text:      #e8e5dc;      /* branco-creme quente */
+  --clr-text-mute: #6b6d6a;      /* cinza-oliva apagado */
+  --clr-text-dim:  #3f4039;      /* muito apagado */
+
+  /* Acento */
+  --clr-accent:    #e8c547;      /* âmbar — instrumentos de precisão */
+  --clr-accent-d:  #b89b2e;      /* âmbar escuro */
+
+  /* Estado */
+  --clr-ok:        #5cb87a;      /* verde industrial */
+  --clr-err:       #d0584a;      /* vermelho queimado */
+  --clr-proc:      #e8a347;      /* laranja-âmbar processando */
+
+  /* Tipografia */
+  --font-mono:     "Consolas", "Lucida Console", monospace;
+
+  /* Espaçamento */
+  --r: 3px;   /* raio padrão — tight, técnico */
+}
+
+/* ── RESET ───────────────────────────────────────────────────── */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  user-select: none;
+}
+
+/* ── BODY ────────────────────────────────────────────────────── */
+body {
+  width: 520px;
+  height: 520px;
+  overflow: hidden;
+  background: transparent !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+}
+
+/* ── CONTAINER ───────────────────────────────────────────────── */
+.radial-container {
+  position: relative;
+  width: 500px;
+  height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent !important;
+}
+
+/* ── SVG WHEEL ───────────────────────────────────────────────── */
+.radial-svg {
+  width: 480px;
+  height: 480px;
+  overflow: visible;
+  z-index: 5;
+}
+
+/* ── SLICE ───────────────────────────────────────────────────── */
+.radial-slice {
+  cursor: pointer;
+  transition: transform 0.14s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
+.radial-slice:hover,
+.radial-slice.hovered {
+  transform-origin: 250px 250px;
+  transform: scale(1.028);
+}
+
+.slice-text {
+  pointer-events: none;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+/* ── TOOLTIP — estilo terminal, sem pill arredondado ─────────── */
+.slice-tooltip {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%) translateY(6px);
+  padding: 5px 12px 5px 10px;
+  background: var(--clr-bg);
+  border: 1.5px solid var(--clr-border-h);
+  border-radius: var(--r);
+  text-align: left;
+  opacity: 0;
+  transition: opacity 0.14s ease, transform 0.14s ease;
+  pointer-events: none;
+  z-index: 20;
+  white-space: nowrap;
+}
+
+.slice-tooltip.visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0px);
+}
+
+.tooltip-title {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--clr-accent);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.tooltip-desc {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--clr-text-mute);
+  margin-top: 1px;
+  letter-spacing: 0.01em;
+}
+
+/* ── MODE BADGE — estilo leitura de status de terminal ───────── */
+.mode-badge {
+  position: absolute;
+  top: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 0;
+  padding: 3px 8px;
+  background: rgba(14, 15, 17, 0.7);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--r);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 400;
+  color: var(--clr-text-mute);
+  cursor: pointer;
+  pointer-events: auto;
+  letter-spacing: 0.04em;
+  transition: border-color 0.14s ease, background 0.14s ease;
+}
+
+.mode-badge:hover {
+  border-color: var(--clr-border-h);
+  background: var(--clr-bg);
+}
+
+.badge-bracket {
+  color: var(--clr-text-dim);
+  font-weight: 400;
+}
+
+#category-label {
+  color: var(--clr-accent);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  padding: 0 2px;
+}
+
+.mode-divider {
+  color: var(--clr-text-dim);
+  margin: 0 4px;
+}
+
+#mode-label {
+  color: var(--clr-text);
+  font-weight: 400;
+}
+
+#mode-label.tools-active {
+  color: var(--clr-accent);
+  font-weight: 700;
+}
+
+.mode-hint {
+  color: var(--clr-text-mute);
+  font-weight: 400;
+  font-size: 9px;
+  margin-left: 8px;
+  opacity: 0.7;
+}
