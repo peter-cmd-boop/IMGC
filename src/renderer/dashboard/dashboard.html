@@ -1,196 +1,284 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>IMGC | The Zero-Click Offline Media Converter</title>
-  <link rel="stylesheet" href="dashboard.css">
-</head>
-<body>
-  
-  <!-- Subtle Hexagonal Logo Watermark in Background -->
-  <div class="app-bg-watermark">
-    <img src="../../../assets/logo.png" alt="IMGC Background" />
-  </div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IMGC | The Zero-Click Offline Media Converter</title>
+    <link rel="stylesheet" href="dashboard.css" />
+  </head>
+  <body>
+    <!-- Subtle Hexagonal Logo Watermark in Background -->
+    <div class="app-bg-watermark">
+      <img src="../../../assets/logo.png" alt="IMGC Background" />
+    </div>
 
-  <div class="app-container">
-    
-    <!-- Top Navigation Header -->
-    <header class="app-header">
-      <div class="brand">
-        <div class="brand-logo-box">
-          <img src="../../../assets/logo.png" alt="IMGC Logo" class="brand-logo-img" />
-        </div>
-        <div>
-          <div class="brand-title">
-            <span>IMGC</span>
-            <span class="badge-edition">Windows</span>
+    <div class="app-container">
+      <!-- Top Navigation Header -->
+      <header class="app-header">
+        <div class="brand">
+          <div class="brand-logo-box">
+            <img
+              src="../../../assets/logo.png"
+              alt="IMGC Logo"
+              class="brand-logo-img"
+            />
           </div>
-          <p class="brand-subtitle">The zero-click offline media converter</p>
-        </div>
-      </div>
-
-      <div class="header-actions">
-        <!-- Media Category Quick Filter -->
-        <div class="media-type-pills">
-          <button id="pill-image" class="type-pill active" onclick="switchCategory('image')">
-            <span>🖼️ Imagens</span>
-          </button>
-          <button id="pill-video" class="type-pill" onclick="switchCategory('video')">
-            <span>🎬 Vídeos</span>
-          </button>
-          <button id="pill-audio" class="type-pill" onclick="switchCategory('audio')">
-            <span>🎵 Áudio</span>
-          </button>
+          <div>
+            <div class="brand-title">
+              <span>IMGC</span>
+              <span class="badge-edition">Windows</span>
+            </div>
+            <p class="brand-subtitle">The zero-click offline media converter</p>
+          </div>
         </div>
 
-        <button id="btn-trigger-radial" class="btn-radial-trigger">
-          <span class="pulse-dot"></span>
-          <span>Ativar Radial (Alt+P / F8)</span>
-        </button>
-
-        <button id="btn-settings" class="btn-icon" title="Configurações">
-          <svg class="icon-svg" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-        </button>
-      </div>
-    </header>
-
-    <!-- Main Content Area -->
-    <main class="app-main">
-      
-      <!-- Primary Drag & Drop Deck -->
-      <section class="card-deck">
-        <div id="drop-zone" class="drop-zone">
-          <input type="file" id="file-selector" class="file-input-hidden" />
-          
-          <div class="drop-content" id="drop-prompt">
-            <div class="drop-logo-badge">
-              <img src="../../../assets/logo.png" alt="IMGC Logo" />
-            </div>
-            <h2 class="drop-title">Arraste seus arquivos para converter</h2>
-            <p class="drop-desc">Processamento 100% offline para Imagens, Vídeos de alta taxa e Áudio de estúdio</p>
-            
-            <div class="drop-badges">
-              <span class="pill-badge">🔒 100% Offline</span>
-              <span class="pill-badge">⚡ Conversão Instantânea</span>
-              <span class="pill-badge">📁 Salva na Mesma Pasta</span>
-            </div>
-          </div>
-
-          <!-- Staged File Card (Appears when file is dropped or selected) -->
-          <div class="staged-file-card hidden" id="staged-card">
-            <div class="staged-header">
-              <div class="file-icon-box" id="staged-icon">🖼️</div>
-              <div class="file-details">
-                <div class="file-name" id="staged-filename">photo.png</div>
-                <div class="file-meta" id="staged-meta">2.4 MB • Imagem</div>
-              </div>
-              <button id="btn-clear-staged" class="btn-clear-file" title="Remover arquivo">✕</button>
-            </div>
-
-            <!-- Format Selector Grid -->
-            <div class="formats-selector-container">
-              <div class="formats-tabs">
-                <button id="tab-formats" class="tab-btn active">⚡ Formatos de Saída</button>
-                <button id="tab-tools" class="tab-btn">🛠️ Ferramentas & Otimização</button>
-              </div>
-              <div id="target-formats-grid" class="target-grid">
-                <!-- Dynamically populated buttons -->
-              </div>
-            </div>
-
-            <div id="conversion-progress" class="conversion-progress hidden">
-              <div class="spinner"></div>
-              <span id="progress-text">Convertendo offline...</span>
-            </div>
-          </div>
-
-        </div>
-      </section>
-
-      <!-- Bottom Workspace: History & Quick Testing -->
-      <section class="history-section">
-        <div class="section-header">
-          <div class="section-title-wrap">
-            <h3 class="section-title">Histórico Recente</h3>
-            <span id="history-count" class="counter-badge">0 arquivos</span>
-          </div>
-          <div class="section-actions">
-            <button id="btn-create-sample" class="btn-secondary-sm">
-              Criar Amostra de Teste
+        <div class="header-actions">
+          <!-- Media Category Quick Filter -->
+          <div class="media-type-pills">
+            <button
+              id="pill-image"
+              class="type-pill active"
+              onclick="switchCategory('image')"
+            >
+              <span>🖼️ Imagens</span>
             </button>
-            <button id="btn-clear-history" class="btn-ghost-sm">
-              Limpar
+            <button
+              id="pill-video"
+              class="type-pill"
+              onclick="switchCategory('video')"
+            >
+              <span>🎬 Vídeos</span>
+            </button>
+            <button
+              id="pill-audio"
+              class="type-pill"
+              onclick="switchCategory('audio')"
+            >
+              <span>🎵 Áudio</span>
             </button>
           </div>
+
+          <button id="btn-trigger-radial" class="btn-radial-trigger">
+            <span class="pulse-dot"></span>
+            <span>Ativar Radial (atalho configurado)</span>
+          </button>
+
+          <button id="btn-settings" class="btn-icon" title="Configurações">
+            <svg
+              class="icon-svg"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+              />
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+              />
+            </svg>
+          </button>
         </div>
+      </header>
 
-        <!-- History List / Table -->
-        <div class="history-list-wrap">
-          <div id="history-empty" class="history-empty">
-            <div class="empty-icon">📁</div>
-            <p>Nenhuma conversão recente.</p>
-            <span class="empty-sub">Arraste um arquivo ou use o atalho <kbd>Alt+P</kbd> ou <kbd>F8</kbd> em qualquer lugar do Windows.</span>
-          </div>
-          <div id="history-items" class="history-items hidden">
-            <!-- Dynamic Items -->
-          </div>
-        </div>
-      </section>
+      <!-- Main Content Area -->
+      <main class="app-main">
+        <p
+          id="status-message"
+          role="status"
+          aria-live="polite"
+          style="overflow-wrap: anywhere"
+        ></p>
+        <button id="btn-cancel" class="btn-secondary-sm" hidden>
+          Cancelar lote
+        </button>
+        <section class="card-deck">
+          <div id="drop-zone" class="drop-zone">
+            <button id="btn-select-files" class="btn-primary" type="button">
+              Selecionar arquivos
+            </button>
 
-    </main>
+            <div class="drop-content" id="drop-prompt">
+              <div class="drop-logo-badge">
+                <img src="../../../assets/logo.png" alt="IMGC Logo" />
+              </div>
+              <h2 class="drop-title">Arraste seus arquivos para converter</h2>
+              <p class="drop-desc">
+                Processamento 100% offline para Imagens, Vídeos de alta taxa e
+                Áudio de estúdio
+              </p>
 
-    <!-- Settings Modal -->
-    <div id="settings-modal" class="modal-overlay hidden">
-      <div class="modal-card">
-        <div class="modal-header">
-          <div class="modal-title-wrap">
-            <img src="../../../assets/logo.png" class="modal-logo" alt="IMGC" />
-            <h3>Configurações do IMGC</h3>
-          </div>
-          <button id="btn-close-settings" class="btn-close-modal">✕</button>
-        </div>
-        <div class="modal-body">
-          
-          <div class="setting-item">
-            <label class="setting-label">Atalhos Globais Ativos</label>
-            <input type="text" id="setting-shortcut" class="setting-input" value="Alt+P / F8" readonly />
-            <span class="setting-hint">Atalhos registrados no Windows para abrir o menu sob o cursor.</span>
-          </div>
+              <div class="drop-badges">
+                <span class="pill-badge">🔒 100% Offline</span>
+                <span class="pill-badge">⚡ Conversão local</span>
+                <span class="pill-badge">📁 Salva na Mesma Pasta</span>
+              </div>
+            </div>
 
-          <div class="setting-item">
-            <label class="setting-label">Qualidade Padrão de Imagem (WebP / JPG)</label>
-            <div class="slider-wrap">
-              <input type="range" id="setting-quality" min="50" max="100" value="85" class="setting-slider" />
-              <span id="quality-val" class="slider-val">85%</span>
+            <!-- Staged File Card (Appears when file is dropped or selected) -->
+            <div class="staged-file-card hidden" id="staged-card">
+              <div class="staged-header">
+                <div class="file-icon-box" id="staged-icon">🖼️</div>
+                <div class="file-details">
+                  <div class="file-name" id="staged-filename">photo.png</div>
+                  <div class="file-meta" id="staged-meta">2.4 MB • Imagem</div>
+                </div>
+                <button
+                  id="btn-clear-staged"
+                  class="btn-clear-file"
+                  title="Remover arquivo"
+                >
+                  ✕
+                </button>
+              </div>
+
+              <!-- Format Selector Grid -->
+              <div class="formats-selector-container">
+                <div class="formats-tabs">
+                  <button id="tab-formats" class="tab-btn active">
+                    ⚡ Formatos de Saída
+                  </button>
+                  <button id="tab-tools" class="tab-btn">
+                    🛠️ Ferramentas & Otimização
+                  </button>
+                </div>
+                <div id="target-formats-grid" class="target-grid">
+                  <!-- Dynamically populated buttons -->
+                </div>
+              </div>
+
+              <div id="conversion-progress" class="conversion-progress hidden">
+                <div class="spinner"></div>
+                <span id="progress-text">Convertendo offline...</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Bottom Workspace: History & Quick Testing -->
+        <section class="history-section">
+          <div class="section-header">
+            <div class="section-title-wrap">
+              <h3 class="section-title">Histórico Recente</h3>
+              <span id="history-count" class="counter-badge">0 arquivos</span>
+            </div>
+            <div class="section-actions">
+              <button id="btn-clear-history" class="btn-ghost-sm">
+                Limpar
+              </button>
             </div>
           </div>
 
-          <div class="setting-item">
-            <label class="setting-checkbox-label">
-              <input type="checkbox" id="setting-auto-open" class="setting-checkbox" />
-              <span>Abrir pasta no Windows Explorer após a conversão</span>
-            </label>
+          <!-- History List / Table -->
+          <div class="history-list-wrap">
+            <div id="history-empty" class="history-empty">
+              <div class="empty-icon">📁</div>
+              <p>Nenhuma conversão recente.</p>
+              <span class="empty-sub"
+                >Arraste um arquivo ou use o atalho <kbd>Alt+P</kbd> para abrir
+                a roda.</span
+              >
+            </div>
+            <div id="history-items" class="history-items hidden">
+              <!-- Dynamic Items -->
+            </div>
           </div>
+        </section>
+      </main>
 
-          <div class="setting-item">
-            <label class="setting-checkbox-label">
-              <input type="checkbox" id="setting-sound" class="setting-checkbox" checked />
-              <span>Efeitos sonoros hápticos (cliques sintéticos)</span>
-            </label>
+      <!-- Settings Modal -->
+      <div id="settings-modal" class="modal-overlay hidden">
+        <div class="modal-card">
+          <div class="modal-header">
+            <div class="modal-title-wrap">
+              <img
+                src="../../../assets/logo.png"
+                class="modal-logo"
+                alt="IMGC"
+              />
+              <h3>Configurações do IMGC</h3>
+            </div>
+            <button id="btn-close-settings" class="btn-close-modal">✕</button>
           </div>
+          <div class="modal-body">
+            <div class="setting-item">
+              <label class="setting-label">Atalhos Globais Ativos</label>
+              <input
+                type="text"
+                id="setting-shortcut"
+                class="setting-input"
+                value="Alt+P"
+              />
+              <span class="setting-hint"
+                >Atalhos registrados no Windows para abrir o menu sob o
+                cursor.</span
+              >
+            </div>
 
-        </div>
-        <div class="modal-footer">
-          <button id="btn-save-settings" class="btn-primary">Salvar Alterações</button>
+            <div class="setting-item">
+              <label class="setting-label"
+                >Qualidade Padrão de Imagem (WebP / JPG)</label
+              >
+              <div class="slider-wrap">
+                <input
+                  type="range"
+                  id="setting-quality"
+                  min="50"
+                  max="100"
+                  value="85"
+                  class="setting-slider"
+                />
+                <span id="quality-val" class="slider-val">85%</span>
+              </div>
+            </div>
+
+            <div class="setting-item">
+              <label class="setting-checkbox-label">
+                <input
+                  type="checkbox"
+                  id="setting-auto-open"
+                  class="setting-checkbox"
+                />
+                <span
+                  >Abrir pasta no gerenciador de arquivos após a conversão</span
+                >
+              </label>
+            </div>
+
+            <div class="setting-item">
+              <label class="setting-checkbox-label">
+                <input
+                  type="checkbox"
+                  id="setting-sound"
+                  class="setting-checkbox"
+                  checked
+                />
+                <span>Efeitos sonoros hápticos (cliques sintéticos)</span>
+              </label>
+            </div>
+          </div>
+          <p
+            id="settings-error"
+            role="alert"
+            style="padding: 16px; color: #ff9898"
+          ></p>
+          <div class="modal-footer">
+            <button id="btn-save-settings" class="btn-primary">
+              Salvar Alterações
+            </button>
+          </div>
         </div>
       </div>
     </div>
 
-  </div>
-
-  <script src="../shared/formats.js"></script>
-  <script src="../shared/sound.js"></script>
-  <script src="dashboard.js"></script>
-</body>
+    <script src="../shared/formats.js"></script>
+    <script src="../shared/sound.js"></script>
+    <script src="dashboard.js"></script>
+  </body>
 </html>

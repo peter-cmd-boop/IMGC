@@ -1,13 +1,14 @@
 {
   "name": "imgc",
   "productName": "IMGC",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "IMGC | The Zero-Click Offline Media Converter (Windows & Linux)",
   "main": "src/main/index.js",
   "scripts": {
     "start": "electron .",
-    "build:exe": "electron-packager . IMGC --platform=win32 --arch=x64 --icon=assets/app_icon.ico --out=dist --overwrite --no-asar --win32metadata.CompanyName=IMGC --win32metadata.FileDescription=\"IMGC - Zero-Click Offline Media Converter\" --win32metadata.ProductName=IMGC --win32metadata.OriginalFilename=IMGC.exe",
-    "build:linux": "electron-packager . IMGC --platform=linux --arch=x64 --out=dist --overwrite --no-asar"
+    "build:exe": "electron-packager . IMGC --platform=win32 --arch=x64 --icon=assets/app_icon.ico --out=dist --overwrite --no-asar --win32metadata.CompanyName=IMGC --win32metadata.FileDescription=\"IMGC - Zero-Click Offline Media Converter\" --win32metadata.ProductName=IMGC --win32metadata.OriginalFilename=IMGC.exe --ignore=\"(.cache|tests|scripts|IMGC-.*[.](zip|gz|sha256))$\"",
+    "build:linux": "electron-packager . IMGC --platform=linux --arch=x64 --out=dist --overwrite --no-asar --ignore=\"(.cache|tests|scripts|IMGC-.*[.](zip|gz|sha256))$\"",
+    "test": "node --test tests/*.test.cjs"
   },
   "keywords": [
     "imgc",

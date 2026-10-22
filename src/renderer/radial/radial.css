@@ -9,31 +9,31 @@
 /* ── TOKENS ─────────────────────────────────────────────────── */
 :root {
   /* Cores base */
-  --clr-bg:        #0e0f11;      /* near-black com leve tom quente */
-  --clr-surface:   #151619;      /* superfície de fatia */
-  --clr-surface-h: #1e2024;      /* hover de fatia */
-  --clr-border:    rgba(232, 229, 220, 0.11); /* borda sutil creme */
-  --clr-border-h:  rgba(232, 229, 220, 0.32); /* borda hover */
+  --clr-bg: #0e0f11; /* near-black com leve tom quente */
+  --clr-surface: #151619; /* superfície de fatia */
+  --clr-surface-h: #1e2024; /* hover de fatia */
+  --clr-border: rgba(232, 229, 220, 0.11); /* borda sutil creme */
+  --clr-border-h: rgba(232, 229, 220, 0.32); /* borda hover */
 
   /* Texto */
-  --clr-text:      #e8e5dc;      /* branco-creme quente */
-  --clr-text-mute: #6b6d6a;      /* cinza-oliva apagado */
-  --clr-text-dim:  #3f4039;      /* muito apagado */
+  --clr-text: #e8e5dc; /* branco-creme quente */
+  --clr-text-mute: #6b6d6a; /* cinza-oliva apagado */
+  --clr-text-dim: #3f4039; /* muito apagado */
 
   /* Acento */
-  --clr-accent:    #e8c547;      /* âmbar — instrumentos de precisão */
-  --clr-accent-d:  #b89b2e;      /* âmbar escuro */
+  --clr-accent: #e8c547; /* âmbar — instrumentos de precisão */
+  --clr-accent-d: #b89b2e; /* âmbar escuro */
 
   /* Estado */
-  --clr-ok:        #5cb87a;      /* verde industrial */
-  --clr-err:       #d0584a;      /* vermelho queimado */
-  --clr-proc:      #e8a347;      /* laranja-âmbar processando */
+  --clr-ok: #5cb87a; /* verde industrial */
+  --clr-err: #d0584a; /* vermelho queimado */
+  --clr-proc: #e8a347; /* laranja-âmbar processando */
 
   /* Tipografia */
-  --font-mono:     "Consolas", "Lucida Console", monospace;
+  --font-mono: "Consolas", "Lucida Console", monospace;
 
   /* Espaçamento */
-  --r: 3px;   /* raio padrão — tight, técnico */
+  --r: 3px; /* raio padrão — tight, técnico */
 }
 
 /* ── RESET ───────────────────────────────────────────────────── */
@@ -107,7 +107,9 @@ body {
   border-radius: var(--r);
   text-align: left;
   opacity: 0;
-  transition: opacity 0.14s ease, transform 0.14s ease;
+  transition:
+    opacity 0.14s ease,
+    transform 0.14s ease;
   pointer-events: none;
   z-index: 20;
   white-space: nowrap;
@@ -155,7 +157,9 @@ body {
   cursor: pointer;
   pointer-events: auto;
   letter-spacing: 0.04em;
-  transition: border-color 0.14s ease, background 0.14s ease;
+  transition:
+    border-color 0.14s ease,
+    background 0.14s ease;
 }
 
 .mode-badge:hover {
@@ -196,4 +200,43 @@ body {
   font-size: 9px;
   margin-left: 8px;
   opacity: 0.7;
+}
+
+.radial-controls {
+  position: absolute;
+  bottom: 2px;
+  left: 10px;
+  right: 10px;
+  z-index: 30;
+  text-align: center;
+  background: #0e0f11;
+  border-radius: 6px;
+  padding: 5px;
+  color: #e8e5dc;
+}
+.radial-controls button {
+  background: #242628;
+  color: #e8e5dc;
+  border: 1px solid #6b6d6a;
+  border-radius: 4px;
+  padding: 6px;
+  cursor: pointer;
+  margin: 2px;
+}
+#radial-status {
+  font-size: 11px;
+  max-height: 44px;
+  overflow: auto;
+  overflow-wrap: anywhere;
+  user-select: text;
+}
+.radial-slice:focus {
+  outline: 2px solid #e8c547;
+}
+
+.mode-badge {
+  white-space: nowrap;
+}
+.mode-hint {
+  font-size: 8px;
 }

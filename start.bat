@@ -7,6 +7,11 @@ echo   IMGC - Zero-Click Offline Media Converter
 echo ========================================================
 echo.
 
+if exist "%~dp0dist\1.0.2\IMGC-win32-x64\IMGC.exe" (
+    start "" "%~dp0dist\1.0.2\IMGC-win32-x64\IMGC.exe"
+    exit /b 0
+)
+
 if exist "%~dp0dist\IMGC-win32-x64\IMGC.exe" (
     echo Iniciando o executavel IMGC.exe...
     start "" "%~dp0dist\IMGC-win32-x64\IMGC.exe"

@@ -6,3 +6,12 @@ src/main/debug.log
 Thumbs.db
 
 *.lnk
+
+.cache/
+tests/smoke-profile/
+tests/fixtures-*/
+
+# Release assets are published on GitHub Releases, not stored in Git.
+/IMGC-*.zip
+/IMGC-*.tar.gz
+/IMGC-*.sha256

@@ -1,116 +1,152 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <title>IMGC</title>
-  <link rel="stylesheet" href="radial.css">
-</head>
-<body>
-  <div id="radial-container" class="radial-container">
+  <head>
+    <meta charset="UTF-8" />
+    <title>IMGC</title>
+    <link rel="stylesheet" href="radial.css" />
+  </head>
+  <body>
+    <div id="radial-container" class="radial-container">
+      <!-- SVG Wheel — cirular puro, sem bounds quadrados -->
+      <svg id="radial-svg" class="radial-svg" viewBox="0 0 500 500">
+        <defs>
+          <!-- Fatia base: sólido escuro, sem gradiente -->
+          <radialGradient id="sliceBase" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#171819" stop-opacity="0.97" />
+            <stop offset="100%" stop-color="#0e0f11" stop-opacity="0.98" />
+          </radialGradient>
 
-    <!-- SVG Wheel — cirular puro, sem bounds quadrados -->
-    <svg id="radial-svg" class="radial-svg" viewBox="0 0 500 500">
-      <defs>
-        <!-- Fatia base: sólido escuro, sem gradiente -->
-        <radialGradient id="sliceBase" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stop-color="#171819" stop-opacity="0.97" />
-          <stop offset="100%" stop-color="#0e0f11" stop-opacity="0.98" />
-        </radialGradient>
+          <!-- Fatia hover: âmbar sutil -->
+          <radialGradient id="sliceHover" cx="40%" cy="40%" r="60%">
+            <stop offset="0%" stop-color="#1e1f1b" stop-opacity="0.98" />
+            <stop offset="100%" stop-color="#131410" stop-opacity="0.99" />
+          </radialGradient>
 
-        <!-- Fatia hover: âmbar sutil -->
-        <radialGradient id="sliceHover" cx="40%" cy="40%" r="60%">
-          <stop offset="0%" stop-color="#1e1f1b" stop-opacity="0.98" />
-          <stop offset="100%" stop-color="#131410" stop-opacity="0.99" />
-        </radialGradient>
+          <!-- Fatia tools hover: âmbar mais quente -->
+          <radialGradient id="sliceToolsHover" cx="40%" cy="40%" r="60%">
+            <stop offset="0%" stop-color="#1e1c13" stop-opacity="0.98" />
+            <stop offset="100%" stop-color="#131209" stop-opacity="0.99" />
+          </radialGradient>
 
-        <!-- Fatia tools hover: âmbar mais quente -->
-        <radialGradient id="sliceToolsHover" cx="40%" cy="40%" r="60%">
-          <stop offset="0%" stop-color="#1e1c13" stop-opacity="0.98" />
-          <stop offset="100%" stop-color="#131209" stop-opacity="0.99" />
-        </radialGradient>
+          <!-- Clip para hub circular -->
+          <clipPath id="hubClip">
+            <circle cx="250" cy="250" r="74" />
+          </clipPath>
+        </defs>
 
-        <!-- Clip para hub circular -->
-        <clipPath id="hubClip">
-          <circle cx="250" cy="250" r="74" />
-        </clipPath>
-      </defs>
-
-      <!-- Guia externa: linha fina pontilhada, discreta -->
-      <circle cx="250" cy="250" r="226"
-        fill="none"
-        stroke="rgba(232,229,220,0.06)"
-        stroke-width="1"
-        stroke-dasharray="2 8" />
-
-      <!-- Grupo de fatias (preenchido via JS) -->
-      <g id="slices-group"></g>
-
-      <!-- Hub central -->
-      <g id="center-hub">
-        <!-- Fundo sólido escuro -->
-        <circle cx="250" cy="250" r="78"
-          fill="#0a0b0d"
-          stroke="rgba(232,229,220,0.12)"
-          stroke-width="1.5" />
-
-        <!-- Anel interno: linha de precisão -->
-        <circle id="hub-ring" cx="250" cy="250" r="70"
+        <!-- Guia externa: linha fina pontilhada, discreta -->
+        <circle
+          cx="250"
+          cy="250"
+          r="226"
           fill="none"
-          stroke="rgba(232,229,220,0.08)"
+          stroke="rgba(232,229,220,0.06)"
           stroke-width="1"
-          stroke-dasharray="3 7" />
+          stroke-dasharray="2 8"
+        />
 
-        <!-- Conteúdo do hub -->
-        <g id="hub-content" transform="translate(250, 250)">
-          <!-- Logo hexagonal do usuário -->
-          <image href="../../../assets/logo.png"
-            x="-26" y="-38"
-            width="52" height="44"
-            preserveAspectRatio="xMidYMid meet" />
+        <!-- Grupo de fatias (preenchido via JS) -->
+        <g id="slices-group"></g>
 
-          <!-- Label primário — estado: nome do app ou formato ativo -->
-          <text id="hub-primary-text"
-            y="24"
-            text-anchor="middle"
-            fill="#e8e5dc"
-            font-family="Consolas, 'Lucida Console', monospace"
-            font-size="11"
-            font-weight="700"
-            letter-spacing="0.1em">IMGC</text>
+        <!-- Hub central -->
+        <g id="center-hub">
+          <!-- Fundo sólido escuro -->
+          <circle
+            cx="250"
+            cy="250"
+            r="78"
+            fill="#0a0b0d"
+            stroke="rgba(232,229,220,0.12)"
+            stroke-width="1.5"
+          />
 
-          <!-- Label secundário — estado: instrução ou status -->
-          <text id="hub-secondary-text"
-            y="37"
-            text-anchor="middle"
-            fill="#3f4039"
-            font-family="Consolas, 'Lucida Console', monospace"
-            font-size="8"
-            font-weight="400"
-            letter-spacing="0.06em">ZERO-CLICK</text>
+          <!-- Anel interno: linha de precisão -->
+          <circle
+            id="hub-ring"
+            cx="250"
+            cy="250"
+            r="70"
+            fill="none"
+            stroke="rgba(232,229,220,0.08)"
+            stroke-width="1"
+            stroke-dasharray="3 7"
+          />
+
+          <!-- Conteúdo do hub -->
+          <g id="hub-content" transform="translate(250, 250)">
+            <!-- Logo hexagonal do usuário -->
+            <image
+              href="../../../assets/logo.png"
+              x="-26"
+              y="-38"
+              width="52"
+              height="44"
+              preserveAspectRatio="xMidYMid meet"
+            />
+
+            <!-- Label primário — estado: nome do app ou formato ativo -->
+            <text
+              id="hub-primary-text"
+              y="24"
+              text-anchor="middle"
+              fill="#e8e5dc"
+              font-family="Consolas, 'Lucida Console', monospace"
+              font-size="11"
+              font-weight="700"
+              letter-spacing="0.1em"
+            >
+              IMGC
+            </text>
+
+            <!-- Label secundário — estado: instrução ou status -->
+            <text
+              id="hub-secondary-text"
+              y="37"
+              text-anchor="middle"
+              fill="#3f4039"
+              font-family="Consolas, 'Lucida Console', monospace"
+              font-size="8"
+              font-weight="400"
+              letter-spacing="0.06em"
+            >
+              ZERO-CLICK
+            </text>
+          </g>
         </g>
-      </g>
-    </svg>
+      </svg>
 
-    <!-- Tooltip — leitura técnica, alinhada à esquerda -->
-    <div id="slice-tooltip" class="slice-tooltip">
-      <div id="tooltip-title" class="tooltip-title">WEBP</div>
-      <div id="tooltip-desc" class="tooltip-desc">Até 85% mais leve, transparência preservada</div>
+      <!-- Tooltip — leitura técnica, alinhada à esquerda -->
+      <div id="slice-tooltip" class="slice-tooltip">
+        <div id="tooltip-title" class="tooltip-title">WEBP</div>
+        <div id="tooltip-desc" class="tooltip-desc">
+          Até 85% mais leve, transparência preservada
+        </div>
+      </div>
+
+      <!-- Badge de modo — estilo status de terminal interativo -->
+      <div
+        id="mode-badge"
+        class="mode-badge"
+        title="Clique ou pressione Tab / 1,2,3 para alternar categoria"
+      >
+        <span class="badge-bracket">[</span>
+        <span id="category-label">IMG</span>
+        <span class="mode-divider">/</span>
+        <span id="mode-label">formatos</span>
+        <span class="badge-bracket">]</span>
+        <span class="mode-hint">1/2/3: categoria · Alt: ferramentas</span>
+      </div>
     </div>
 
-    <!-- Badge de modo — estilo status de terminal interativo -->
-    <div id="mode-badge" class="mode-badge" title="Clique ou pressione Tab / 1,2,3 para alternar categoria">
-      <span class="badge-bracket">[</span>
-      <span id="category-label">IMG</span>
-      <span class="mode-divider">/</span>
-      <span id="mode-label">formatos</span>
-      <span class="badge-bracket">]</span>
-      <span class="mode-hint">Tab: trocar · Alt: ferramentas</span>
+    <div class="radial-controls">
+      <button id="radial-select">Selecionar arquivos</button
+      ><button id="radial-dashboard">Painel</button
+      ><button id="radial-cancel" hidden>Cancelar lote</button
+      ><button id="radial-open-folder" hidden>Abrir pasta</button>
+      <p id="radial-status" role="status" aria-live="polite"></p>
     </div>
-
-  </div>
-
-  <script src="../shared/formats.js"></script>
-  <script src="../shared/sound.js"></script>
-  <script src="radial.js"></script>
-</body>
+    <script src="../shared/formats.js"></script>
+    <script src="../shared/sound.js"></script>
+    <script src="radial.js"></script>
+  </body>
 </html>
