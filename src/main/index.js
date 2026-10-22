@@ -32,10 +32,9 @@ Menu.setApplicationMenu(null);
 // Enforce single instance
 const gotTheLock = app.requestSingleInstanceLock();
 if (!gotTheLock) {
-  log('Another instance already running. Exiting secondary instance.');
+  log('Another instance already running. Requesting main instance to open radial.');
   app.quit();
-  process.exit(0);
-}
+} else {
 
 let radialWindow = null;
 let tray = null;
@@ -391,3 +390,4 @@ ipcMain.on('radial-close', () => {
 
 ipcMain.handle('get-history', () => conversionHistory);
 ipcMain.handle('get-settings', () => appSettings);
+}
