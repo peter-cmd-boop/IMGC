@@ -1,21 +1,21 @@
 # IMGC — Zero-Click Offline Media Converter
 
-> **Conversor contextual de mídia ultrarrápido, 100% offline e com interface radial flutuante para Windows.**  
+> **Conversor contextual de mídia ultrarrápido, 100% offline e com interface radial flutuante para Windows e Linux.**  
 > Projetado para transformar arquivos de Imagem, Vídeo e Áudio com um único gesto de arrastar e soltar.
 
 ---
 
 ## 🤖 Aviso de Desenvolvimento (Built with AI)
 
-Este projeto foi **concebido, arquitetado e desenvolvido em colaboração com Inteligência Artificial**, passando por auditorias e refinamentos estéticos humanos para garantir um padrão visual utilitário e técnico, sem templates genéricos, e com engenharia de alta performance voltada para o ambiente desktop nativo do Windows.
+Este projeto foi **concebido, arquitetado e desenvolvido em colaboração com Inteligência Artificial**, passando por auditorias e refinamentos estéticos humanos para garantir um padrão visual utilitário e técnico, sem templates genéricos, e com engenharia de alta performance voltada para ambientes desktop (Windows e Linux).
 
 ---
 
 ## ⚡ O que é o IMGC?
 
-Inspirado no conceito do utilitário *Tangerine* (macOS), o **IMGC** traz para o Windows uma experiência de conversão de mídia fluida:
+Inspirado no conceito do utilitário *Tangerine* (macOS), o **IMGC** traz para o Windows e Linux uma experiência de conversão de mídia fluida:
 
-1. **Zero-Click**: Basta arrastar qualquer arquivo de imagem, vídeo ou áudio para o centro da tela.
+1. **Zero-Click**: Arraste qualquer arquivo de imagem, vídeo ou áudio para a tela ou acione o atalho global.
 2. A **Roda Radial Flutuante** surge instantaneamente sob o cursor.
 3. Solte o arquivo na fatia do formato ou ferramenta desejada. O arquivo convertido é gravado no mesmo diretório em milissegundos.
 
@@ -63,38 +63,32 @@ O app opera em segundo plano na bandeja do sistema (*System Tray*), consumindo m
 
 ---
 
-## 🛠️ Stack Tecnológica
+## 📦 Como Usar (Downloads Prontos)
 
-* **Runtime**: [Electron](https://www.electronjs.org/) (Processo em background sem molduras, janela transparente circular acelerada por hardware).
-* **Processamento de Imagem**: [Sharp](https://sharp.pixelplumbing.com/) (Bindings nativos em C++ via libvips para conversões ultrarrápidas).
-* **Processamento de Áudio e Vídeo**: [fluent-ffmpeg](https://github.com/fluent-ffmpeg/node-ffmpeg) com binários estáticos offline de [ffmpeg-static](https://github.com/eugeneware/ffmpeg-static).
-* **Interface**: Vanilla JavaScript + SVG inline vetorial com design system utilitário técnico (sem dependências de frameworks pesados).
+Baixe a versão compilada para o seu sistema na aba **[Releases](https://github.com/peter-cmd-boop/IMGC/releases)**:
+
+### 🪟 Windows (64-bit)
+1. Baixe o arquivo `IMGC-Windows-x64.zip`.
+2. Extraia o conteúdo e dê dois cliques em `IMGC.exe`.
+3. Pronto! O app fica disponível em segundo plano na bandeja do sistema.
+
+### 🐧 Linux (64-bit)
+1. Baixe o arquivo `IMGC-Linux-x64.tar.gz`.
+2. Extraia o pacote e execute pelo terminal ou dois cliques:
+```bash
+tar -xzf IMGC-Linux-x64.tar.gz
+cd IMGC-linux-x64
+./start.sh
+```
 
 ---
 
-## 🚀 Como Executar ou Compilar
+## 🛠️ Stack Tecnológica
 
-### Pré-requisitos
-* [Node.js](https://nodejs.org/) (v18 ou superior)
-* Windows 10 ou 11 (64-bit)
-
-### Instalação
-```bash
-git clone https://github.com/seu-usuario/imgc.git
-cd imgc
-npm install
-```
-
-### Desenvolvimento
-```bash
-npm start
-```
-
-### Gerar o Executável (.exe)
-```bash
-npm run build:exe
-```
-O executável autônomo será gerado na pasta `dist/IMGC-win32-x64/IMGC.exe`.
+* **Runtime**: [Electron](https://www.electronjs.org/) (Janela transparente circular acelerada por hardware).
+* **Processamento de Imagem**: [Sharp](https://sharp.pixelplumbing.com/) (Libvips nativo de alta performance para Windows e Linux).
+* **Processamento de Áudio e Vídeo**: [fluent-ffmpeg](https://github.com/fluent-ffmpeg/node-ffmpeg) com binários estáticos embutidos de [ffmpeg-static](https://github.com/eugeneware/ffmpeg-static).
+* **Interface**: Vanilla JavaScript + SVG inline vetorial com design system utilitário técnico.
 
 ---
 

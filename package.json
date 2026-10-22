@@ -2,11 +2,12 @@
   "name": "imgc",
   "productName": "IMGC",
   "version": "1.0.0",
-  "description": "IMGC | The Zero-Click Offline Media Converter for Windows",
+  "description": "IMGC | The Zero-Click Offline Media Converter (Windows & Linux)",
   "main": "src/main/index.js",
   "scripts": {
     "start": "electron .",
-    "build:exe": "electron-packager . IMGC --platform=win32 --arch=x64 --icon=assets/app_icon.ico --out=dist --overwrite --no-asar --win32metadata.CompanyName=IMGC --win32metadata.FileDescription=\"IMGC - Zero-Click Offline Media Converter\" --win32metadata.ProductName=IMGC --win32metadata.OriginalFilename=IMGC.exe"
+    "build:exe": "electron-packager . IMGC --platform=win32 --arch=x64 --icon=assets/app_icon.ico --out=dist --overwrite --no-asar --win32metadata.CompanyName=IMGC --win32metadata.FileDescription=\"IMGC - Zero-Click Offline Media Converter\" --win32metadata.ProductName=IMGC --win32metadata.OriginalFilename=IMGC.exe",
+    "build:linux": "electron-packager . IMGC --platform=linux --arch=x64 --out=dist --overwrite --no-asar"
   },
   "keywords": [
     "imgc",
@@ -30,5 +31,8 @@
   "devDependencies": {
     "@electron/packager": "^19.0.4",
     "electron": "^45.0.0"
+  },
+  "optionalDependencies": {
+    "@img/sharp-linux-x64": "^0.35.5"
   }
 }
